@@ -1,0 +1,32 @@
+
+POST http://127.0.0.1:8080/orders
+<orden>
+ <cliente>54321</cliente>
+  <id>1235</id>
+  <total>500</total>
+  <productos>
+    <producto>
+     <id>123</id>
+     <line>1</line>
+   </producto>
+  <producto>
+    <id>321</id>
+     <line>02</line>
+  </producto>
+ </productos>
+</orden>
+
+
+#
+POST http://127.0.0.1:8080/orders
+{
+  "cliente": "54321",
+  "id": "1235",
+  "total": "500",
+  "productos": {
+    "producto": {
+      "id": "123"
+    }
+  }
+}
+

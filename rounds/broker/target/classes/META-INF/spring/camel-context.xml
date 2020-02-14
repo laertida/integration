@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+  <camelContext xmlns="http://camel.apache.org/schema/spring">
+    <dataFormats>
+      <xmljson id="xmljson"/>
+    </dataFormats>
+    
+    <route>
+      <from uri="jetty:http://localhost:8080/orders"/>
+      <split>
+	<xpath>//producto</xpath>
+	<choice>
+	  <when>
+	    <xpath>//line/text() = '1'</xpath>
+	    <marshal ref="xmljson"/>
+	    <to uri="file:destino/line1"/>
+	  </when>
+	  <otherwise>
+	    <to uri="file:destino/line2"/>
+	  </otherwise>
+	</choice>
+      </split>
+    </route>
+  </camelContext>
+
+</beans>

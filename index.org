@@ -1,0 +1,193 @@
+#+REVEAL_ROOT: ../
+#+REVEAL_THEME: bosch
+#+REVEAL_MARGIN: 0.2
+#+LANGUAGE: es
+#+AUTHOR: Laurencio Alan García  C/IDI1-MX
+#+EMAIL: laurencio.garcia@mx.bosch.com
+#+OPTIONS: timestamp:t date:t author:nil todo:nil toc:nil title:t email:nil num:nil reveal_single_file:nil
+#+TITLE: Integrar sistemas
+
+* Una historia de boschenlinea.com
+** 2017 
+
+#+BEGIN_SRC plantuml :file ./images/rigida.png
+
+node IBM
+node PRMS
+node PTW
+node P39
+node PC4
+node P13
+
+IBM == PRMS : txt 
+IBM .. PTW  : idoc
+IBM .. P13  : ?
+IBM .. P39  : ?
+IBM .. PC4  : ?
+
+#+END_SRC
+Limitaciones
+
+1. Modificar interfaz de orden standard.
+2. Implementación atada a un solo ERP. 
+3. Cualquier modificación implicaría un costo.
+4. Funcionalidades de la plataforma se limitan.
+*** Pérdida de información
+
+| Información              | XML | TXT |
+| detalles de orden        | sí  |     |
+| información de usuario   | sí  |     |
+| información de pago      | sí  | sí  |
+| dirección de facturación | sí  | sí  |
+| descuentos de orden      | sí  |     |
+| productos                | sí  | sí  |
+| descuentos de producto   | sí  | sí  |
+| método de envío          | sí  |     |
+| descuentos de envío      | sí  |     |
+
+
+** Un sistema para integrar sistemas
+#+BEGIN_SRC plantuml :file ./images/flexible.png
+node IBM
+node SX
+node PRMS
+node PTW
+node P39
+node PC4
+node P13
+
+
+IBM == SX  : XML
+SX == PRMS : txt 
+SX .. PTW  : idoc
+SX .. P13  : ?
+SX .. P39  : ?
+SX .. PC4  : ?
+#+END_SRC
+
+* EIP 
+ [[file:./images/eips.jpg]]
+
+** Examples
+
+#+BEGIN_SRC plantuml :file ./images/exampels_eip.png
+!includeurl https://raw.githubusercontent.com/aheil/EIP-PlantUML/master/dist/EIP-PlantUML.puml
+MsgChannel(channel1, "Channel 1")
+Message(msg, "Message")
+MessageTranslator(formater, "formatter")
+ContentFilter(filter , "filter")
+DynamicRouter(dynamicrouter, "My Dynamic Router", rulebase)
+Splitter(splitter ,"splitter")
+Aggregator(aggregator ,"aggregator")
+RecipientList(recipient ,"Recipient list")
+MsgBus(bus, "Message bus")
+MessageEndpoint(endpoint, "endpoint")
+MessageBroker(broker ,"Message broker")
+#+END_SRC
+
+** Intefraz orden
+#+BEGIN_SRC plantuml :file ./images/order_interface.png
+!includeurl https://raw.githubusercontent.com/aheil/EIP-PlantUML/master/dist/EIP-PlantUML.puml
+left to right direction
+
+Message(orden, "xml")
+Splitter(splitter ,"splitter")
+Aggregator(aggregator ,"aggregator")
+RecipientList(recipient ,"Recipient list")
+Message(PTW, "xml")
+Message(PRMS, "xml")
+Message(P13, "xml")
+MessageTranslator(formater, "xml->txt")
+Message(TXT, "txt")
+Send(orden, splitter)
+Send(splitter, aggregator)
+Send(aggregator, recipient)
+
+Send(recipient, PTW)
+Send(recipient, PRMS)
+Send(recipient, P13)
+Send(PRMS, formater)
+Send(formater, TXT)
+
+#+END_SRC
+
+* Apache camel
+  
+Framework que te permite definir tus rutas de integración, qué mensajes aceptar, cómo procesarlos y enviar esos mensajes a otros destinos.
+
+Camel ofrece abstracciones de alto nivel (EIPs) que te permiten interactuar con varios sistemas con la misma API sin *importar el protocolo o el tipo de datos que usen*.
+** Más
+- Enterprise integration patterns
+- Amplia biblioteca de componentes
+- Domain Specific Language (DSL)
+- Payload Agnostic
+- Arquitectura modular
+- POJO (Plain Old Java Object)
+- Automatic type converters
+- Lightweight core ideal for microservices
+- Cloud ready*
+
+** Arquitectura de Camel
+[[file:./images/camel-architecture.png]]
+
+* Manos a la obra
+** Round 01. Componentes 
+
+Las órdenes de un ecommerce llegan en una carpeta compartida, para que PRMS las procese. Los archivos deben moverse de una carpeta a otra cada 2 minutos. 
+
+#+BEGIN_SRC plantuml :file ./images/round01.png
+left to right direction
+folder origen
+file orden
+folder destino
+
+origen .. orden
+orden .. destino
+#+END_SRC
+
+*** Orden
+
+#+BEGIN_SRC xml
+<orden>
+<cliente>54321</cliente>
+<id>1235</id>
+<total>500</total>
+<productos>
+  <producto>
+    <part>123456</part>
+    <qty>1</qty>
+    <price>350</price>
+    <line>01</line>
+  </producto>
+  <producto line="02">
+    <part>654321</part>
+    <qty>1</qty>
+    <price>150</price>
+    <line>02</line>
+  </producto>
+</productos>
+</orden>
+
+#+END_SRC
+
+** ¿Qué debe hacer?
+- Timer.
+- Carpeta destino no exista.
+- Que haya archivos que no sean .xml
+- Garantizar que los archivos sólo se envíen una vez. 
+- Rollback
+
+** Camel archetype
+
+#+BEGIN_EXAMPLE
+
+mvn archetype:generate                   \
+  -DarchetypeGroupId=org.apache.camel.archetypes  \
+  -DarchetypeArtifactId=camel-archetype-spring   \
+  -DarchetypeVersion=2.16.5             \
+  -DgroupId=com.bosch                  \
+  -DartifactId=broker
+
+#+END_EXAMPLE
+
+

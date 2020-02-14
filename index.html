@@ -1,50 +1,308 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<title>Integrar sistemas</title>
+<meta name="author" content="(Laurencio Alan García  C/IDI1-MX)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="../css/reveal.css"/>
 
-		<title>reveal.js</title>
+<link rel="stylesheet" href="../css/theme/bosch.css" id="theme"/>
 
-		<link rel="stylesheet" href="css/reset.css">
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/monokai.css">
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '../css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Integrar sistemas</h1><p class="date">Created: 2020-02-14 vie 07:00</p>
+</section>
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+<section>
+<section id="slide-org7c825de">
+<h2 id="org7c825de">Una historia de boschenlinea.com</h2>
+<div class="outline-text-2" id="text-org7c825de">
+</div>
+</section>
+<section id="slide-org02e1b97">
+<h3 id="org02e1b97">2017</h3>
 
-		<script src="js/reveal.js"></script>
+<div class="figure">
+<p><img src="./images/rigida.png" alt="rigida.png" />
+</p>
+</div>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				hash: true,
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/highlight/highlight.js' },
-					{ src: 'plugin/notes/notes.js', async: true }
-				]
-			});
-		</script>
-	</body>
+<p>
+Limitaciones
+</p>
+
+<ol>
+<li>Modificar interfaz de orden standard.</li>
+<li>Implementación atada a un solo ERP.</li>
+<li>Cualquier modificación implicaría un costo.</li>
+<li>Funcionalidades de la plataforma se limitan.</li>
+
+</ol>
+</section>
+<section id="slide-orgda2137d">
+<h4 id="orgda2137d">Pérdida de información</h4>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Información</td>
+<td class="org-left">XML</td>
+<td class="org-left">TXT</td>
+</tr>
+
+<tr>
+<td class="org-left">detalles de orden</td>
+<td class="org-left">sí</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">información de usuario</td>
+<td class="org-left">sí</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">información de pago</td>
+<td class="org-left">sí</td>
+<td class="org-left">sí</td>
+</tr>
+
+<tr>
+<td class="org-left">dirección de facturación</td>
+<td class="org-left">sí</td>
+<td class="org-left">sí</td>
+</tr>
+
+<tr>
+<td class="org-left">descuentos de orden</td>
+<td class="org-left">sí</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">productos</td>
+<td class="org-left">sí</td>
+<td class="org-left">sí</td>
+</tr>
+
+<tr>
+<td class="org-left">descuentos de producto</td>
+<td class="org-left">sí</td>
+<td class="org-left">sí</td>
+</tr>
+
+<tr>
+<td class="org-left">método de envío</td>
+<td class="org-left">sí</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">descuentos de envío</td>
+<td class="org-left">sí</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+<section id="slide-orgac872d0">
+<h3 id="orgac872d0">Un sistema para integrar sistemas</h3>
+
+<div class="figure">
+<p><img src="./images/flexible.png" alt="flexible.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgc83d818">
+<h2 id="orgc83d818">EIP</h2>
+
+<div class="figure">
+<p><img src="./images/eips.jpg" alt="eips.jpg" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgf1d4a8c">
+<h3 id="orgf1d4a8c">Examples</h3>
+
+<div class="figure">
+<p><img src="./images/exampels_eip.png" alt="exampels_eip.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-org2d60fdf">
+<h3 id="org2d60fdf">Intefraz orden</h3>
+
+<div class="figure">
+<p><img src="./images/order_interface.png" alt="order_interface.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org7af7dec">
+<h2 id="org7af7dec">Apache camel</h2>
+<p>
+Framework que te permite definir tus rutas de integración, qué mensajes aceptar, cómo procesarlos y enviar esos mensajes a otros destinos.
+</p>
+
+<p>
+Camel ofrece abstracciones de alto nivel (EIPs) que te permiten interactuar con varios sistemas con la misma API sin <b>importar el protocolo o el tipo de datos que usen</b>.
+</p>
+</section>
+<section id="slide-org8cebd00">
+<h3 id="org8cebd00">Más</h3>
+<ul>
+<li>Enterprise integration patterns</li>
+<li>Amplia biblioteca de componentes</li>
+<li>Domain Specific Language (DSL)</li>
+<li>Payload Agnostic</li>
+<li>Arquitectura modular</li>
+<li>POJO (Plain Old Java Object)</li>
+<li>Automatic type converters</li>
+<li>Lightweight core ideal for microservices</li>
+<li>Cloud ready*</li>
+
+</ul>
+
+</section>
+<section id="slide-org6440129">
+<h3 id="org6440129">Arquitectura de Camel</h3>
+
+<div class="figure">
+<p><img src="./images/camel-architecture.png" alt="camel-architecture.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgeeac011">
+<h2 id="orgeeac011">Manos a la obra</h2>
+<div class="outline-text-2" id="text-orgeeac011">
+</div>
+</section>
+<section id="slide-org4a36c72">
+<h3 id="org4a36c72">Round 01. Componentes</h3>
+<p>
+Las órdenes de un ecommerce llegan en una carpeta compartida, para que PRMS las procese. Los archivos deben moverse de una carpeta a otra cada 2 minutos. 
+</p>
+
+
+<div class="figure">
+<p><img src="./images/round01.png" alt="round01.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-org3c3acfc">
+<h4 id="org3c3acfc">Orden</h4>
+<div class="org-src-container">
+
+<pre  class="src src-xml"><code trim>&lt;<span style="color: #0000ff; font-weight: bold;">orden</span>&gt;
+&lt;<span style="color: #0000ff; font-weight: bold;">cliente</span>&gt;54321&lt;/<span style="color: #0000ff; font-weight: bold;">cliente</span>&gt;
+&lt;<span style="color: #0000ff; font-weight: bold;">id</span>&gt;1235&lt;/<span style="color: #0000ff; font-weight: bold;">id</span>&gt;
+&lt;<span style="color: #0000ff; font-weight: bold;">total</span>&gt;500&lt;/<span style="color: #0000ff; font-weight: bold;">total</span>&gt;
+&lt;<span style="color: #0000ff; font-weight: bold;">productos</span>&gt;
+  &lt;<span style="color: #0000ff; font-weight: bold;">producto</span>&gt;
+    &lt;<span style="color: #0000ff; font-weight: bold;">part</span>&gt;123456&lt;/<span style="color: #0000ff; font-weight: bold;">part</span>&gt;
+    &lt;<span style="color: #0000ff; font-weight: bold;">qty</span>&gt;1&lt;/<span style="color: #0000ff; font-weight: bold;">qty</span>&gt;
+    &lt;<span style="color: #0000ff; font-weight: bold;">price</span>&gt;350&lt;/<span style="color: #0000ff; font-weight: bold;">price</span>&gt;
+    &lt;<span style="color: #0000ff; font-weight: bold;">line</span>&gt;01&lt;/<span style="color: #0000ff; font-weight: bold;">line</span>&gt;
+  &lt;/<span style="color: #0000ff; font-weight: bold;">producto</span>&gt;
+  &lt;<span style="color: #0000ff; font-weight: bold;">producto</span> <span style="color: #ffff00;">line</span>=<span style="color: #00ff00;">"02"</span>&gt;
+    &lt;<span style="color: #0000ff; font-weight: bold;">part</span>&gt;654321&lt;/<span style="color: #0000ff; font-weight: bold;">part</span>&gt;
+    &lt;<span style="color: #0000ff; font-weight: bold;">qty</span>&gt;1&lt;/<span style="color: #0000ff; font-weight: bold;">qty</span>&gt;
+    &lt;<span style="color: #0000ff; font-weight: bold;">price</span>&gt;150&lt;/<span style="color: #0000ff; font-weight: bold;">price</span>&gt;
+    &lt;<span style="color: #0000ff; font-weight: bold;">line</span>&gt;02&lt;/<span style="color: #0000ff; font-weight: bold;">line</span>&gt;
+  &lt;/<span style="color: #0000ff; font-weight: bold;">producto</span>&gt;
+&lt;/<span style="color: #0000ff; font-weight: bold;">productos</span>&gt;
+&lt;/<span style="color: #0000ff; font-weight: bold;">orden</span>&gt;
+
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgfd962b9">
+<h3 id="orgfd962b9">¿Qué debe hacer?</h3>
+<ul>
+<li>Timer.</li>
+<li>Carpeta destino no exista.</li>
+<li>Que haya archivos que no sean .xml</li>
+<li>Garantizar que los archivos sólo se envíen una vez.</li>
+<li>Rollback</li>
+
+</ul>
+
+</section>
+<section id="slide-org2e3ac4e">
+<h3 id="org2e3ac4e">Camel archetype</h3>
+<pre class="example">
+
+mvn archetype:generate                   \
+  -DarchetypeGroupId=org.apache.camel.archetypes  \
+  -DarchetypeArtifactId=camel-archetype-spring   \
+  -DarchetypeVersion=2.16.5             \
+  -DgroupId=com.bosch                  \
+  -DartifactId=broker
+
+</pre>
+</section>
+</section>
+</div>
+</div>
+<script src="../js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: '../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: '../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '../plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '../plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
 </html>
